@@ -7,11 +7,11 @@ Raylib.InitWindow(1280, 800, "The Backrooms");
 Raylib.SetTargetFPS(60);
 
 
-float speed = 3f;
+float speed = 3.5f;
 float botSpeed = 2;
 
 
-Texture2D playerSprite = Raylib.LoadTexture("Biker_hurt.png");
+Texture2D playerSprite = Raylib.LoadTexture("Biker1.png");
 Rectangle player = new Rectangle(0, 60, playerSprite.width, playerSprite.height);
 Rectangle botRect = new Rectangle(700, 500, 64, 64);
 string currenctScene = "welcomescreen";
@@ -141,7 +141,7 @@ while (Raylib.WindowShouldClose() == false)
 //                  TO-DO-LIST                  //
 
 
-// * Enlargen Sprite
+
 // * Multiple Levels - 
 // -> Movement on multiple levels
 // Make bot have skin

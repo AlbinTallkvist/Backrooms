@@ -101,23 +101,24 @@ while (Raylib.WindowShouldClose() == false)
     Raylib.DrawRectangleRec(botRect, Color.WHITE);
   }
 
+  else if (currenctScene =="level2")
+  {
+    Raylib.DrawTexture(playerSprite, (int) player.x, (int) player.y, backgroundcolor);
 
-//  else if (currenctScene =="level2")
-//  {
-//    Raylib.DrawTexture()
-//  }
+    Raylib.DrawRectangleRec(botRect, Color.WHITE);
+  }
 
 
   else if (currenctScene == "welcomescreen")
   {
-    Raylib.DrawText("Welcome To The Backrooms", 315, 500, 32, textcolor);
-    Raylib.DrawText("\nENTER to begin", 315, 500, 32, textcolor);
+    Raylib.DrawText("Welcome To The Backrooms", 280, 400, 50, textcolor);
+    Raylib.DrawText("\nENTER to begin", 515, 420, 32, textcolor);
   }
 
 
   else if (currenctScene == "defeat")
   {
-    Raylib.DrawText("Fin.", 100, 100, 128, Color.BLACK);
+    Raylib.DrawText("Fin.", 540, 300, 128, Color.WHITE);
   }
 
 

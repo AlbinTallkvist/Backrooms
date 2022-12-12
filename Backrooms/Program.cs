@@ -11,8 +11,12 @@ float speed = 3.5f;
 float botSpeed = 2;
 
 
-Texture2D playerSprite = Raylib.LoadTexture("Biker1.png");
-Rectangle player = new Rectangle(0, 60, playerSprite.width, playerSprite.height);
+Texture2D PlayerSpriteF = Raylib.LoadTexture("MainCharacterFront.png");
+Texture2D monsterSprite = Raylib.LoadTexture("monster1.png");
+
+
+
+Rectangle player = new Rectangle(0, 60, PlayerSpriteF.width, PlayerSpriteF.height);
 Rectangle botRect = new Rectangle(700, 500, 64, 64);
 string currenctScene = "welcomescreen";
 
@@ -27,23 +31,29 @@ Vector2 botMovement = new Vector2(1, 0);
 //                  KEYBOARD-CONTROLS                  //
 
 
+
 while (Raylib.WindowShouldClose() == false)
 {
-
   if (currenctScene == "level1")   // [KOM IHÅG!] Lägg till för andra nivåer på Torsdag
   {
     if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
     {
       player.x += speed;
     }
+
+
     if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
     {
       player.x -= speed;
     }
+
+
     if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
     {
-      player.y += speed;
+      player.y += speed;     
     }
+
+
     if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
   {
     player.y -= speed;
@@ -96,14 +106,14 @@ while (Raylib.WindowShouldClose() == false)
 
   if (currenctScene == "level1")
   {
-    Raylib.DrawTexture(playerSprite, (int) player.x, (int) player.y, backgroundcolor);
+    Raylib.DrawTexture(PlayerSpriteF, (int) player.x, (int) player.y, backgroundcolor);
 
     Raylib.DrawRectangleRec(botRect, Color.WHITE);
-  }
+  } 
 
   else if (currenctScene =="level2")
   {
-    Raylib.DrawTexture(playerSprite, (int) player.x, (int) player.y, backgroundcolor);
+    Raylib.DrawTexture(PlayerSpriteF, (int) player.x, (int) player.y, backgroundcolor);
 
     Raylib.DrawRectangleRec(botRect, Color.WHITE);
   }
@@ -143,6 +153,5 @@ while (Raylib.WindowShouldClose() == false)
 
 
 // * Multiple Levels - 
-// -> Movement on multiple levels
 // Make bot have skin
 // Multiple enemies on first map?

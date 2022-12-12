@@ -12,7 +12,7 @@ float botSpeed = 2;
 
 
 Texture2D PlayerSpriteF = Raylib.LoadTexture("MainCharacterFront.png");
-Texture2D monsterSprite = Raylib.LoadTexture("monster1.png");
+Texture2D monsterSprite = Raylib.LoadTexture("monster2.png");
 Texture2D backgroundImage = Raylib.LoadTexture("Background1.png");
 
 
@@ -109,16 +109,15 @@ while (Raylib.WindowShouldClose() == false)
   if (currenctScene == "level1")
   {
     Raylib.DrawTextureEx(backgroundImage, new Vector2(0, 0), 0, 3, Color.WHITE);
-    Raylib.DrawRectangleRec(botRect, Color.WHITE);
-     Raylib.DrawTexture(PlayerSpriteF, (int) player.x, (int) player.y, backgroundcolor);
+    Raylib.DrawTexture(monsterSprite, (int)botRect.x, (int)botRect.y, Color.WHITE);
+    Raylib.DrawTexture(PlayerSpriteF, (int) player.x, (int) player.y, backgroundcolor);
 
   } 
 
   else if (currenctScene =="level2")
   {
     Raylib.DrawTexture(PlayerSpriteF, (int) player.x, (int) player.y, backgroundcolor);
-
-    Raylib.DrawRectangleRec(botRect, Color.WHITE);
+    Raylib.DrawTexture(monsterSprite, (int)botRect.x, (int)botRect.y, Color.WHITE);
   }
 
 
@@ -155,6 +154,5 @@ while (Raylib.WindowShouldClose() == false)
 
 
 
-// * Multiple Levels - 
-// Make bot have skin
-// Multiple enemies on first map?
+// * Multiple Levels 
+// * Borders!!

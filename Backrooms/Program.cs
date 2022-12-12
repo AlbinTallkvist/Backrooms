@@ -13,11 +13,12 @@ float botSpeed = 2;
 
 Texture2D PlayerSpriteF = Raylib.LoadTexture("MainCharacterFront.png");
 Texture2D monsterSprite = Raylib.LoadTexture("monster1.png");
+Texture2D backgroundImage = Raylib.LoadTexture("Background1.png");
 
 
 
-Rectangle player = new Rectangle(0, 60, PlayerSpriteF.width, PlayerSpriteF.height);
-Rectangle botRect = new Rectangle(700, 500, 64, 64);
+Rectangle player = new Rectangle(415, 60, PlayerSpriteF.width, PlayerSpriteF.height);
+Rectangle botRect = new Rectangle(1000, 1000, 48, 48);
 string currenctScene = "welcomescreen";
 
 
@@ -102,13 +103,15 @@ while (Raylib.WindowShouldClose() == false)
 
   Raylib.BeginDrawing();
   Raylib.ClearBackground(backgroundcolor);
+  
 
 
   if (currenctScene == "level1")
   {
-    Raylib.DrawTexture(PlayerSpriteF, (int) player.x, (int) player.y, backgroundcolor);
-
+    Raylib.DrawTextureEx(backgroundImage, new Vector2(0, 0), 0, 3, Color.WHITE);
     Raylib.DrawRectangleRec(botRect, Color.WHITE);
+     Raylib.DrawTexture(PlayerSpriteF, (int) player.x, (int) player.y, backgroundcolor);
+
   } 
 
   else if (currenctScene =="level2")
@@ -127,7 +130,7 @@ while (Raylib.WindowShouldClose() == false)
 
 
   else if (currenctScene == "defeat")
-  {
+  {   
     Raylib.DrawText("Fin.", 540, 300, 128, Color.WHITE);
   }
 

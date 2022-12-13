@@ -17,11 +17,11 @@ Texture2D backgroundImage = Raylib.LoadTexture("Background1.png");
 Texture2D keySprite = Raylib.LoadTexture("key.png");
 
 
-Rectangle keyRect = new Rectangle(250, 250, keySprite.width, keySprite.height);
+Rectangle keyRect = new Rectangle(100, 700, keySprite.width, keySprite.height);
 Rectangle player = new Rectangle(415, 60, PlayerSpriteF.width, PlayerSpriteF.height);
 Rectangle botRect = new Rectangle(1000, 1000, 48, 48);
 Rectangle bot2Rect = new Rectangle(500, 500, 48, 48);
-Rectangle sceneChangeRect = new Rectangle(700, 700, 100, 100);
+Rectangle sceneChangeRect = new Rectangle(1075, 60, 100, 100);
 string currenctScene = "welcomescreen";
 
 

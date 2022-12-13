@@ -14,11 +14,14 @@ float botSpeed = 2;
 Texture2D PlayerSpriteF = Raylib.LoadTexture("MainCharacterFront.png");
 Texture2D monsterSprite = Raylib.LoadTexture("monster2.png");
 Texture2D backgroundImage = Raylib.LoadTexture("Background1.png");
+Texture2D keySprite = Raylib.LoadTexture("key.png");
 
 
-
+Rectangle keyRect = new Rectangle(250, 250, keySprite.width, keySprite.height);
 Rectangle player = new Rectangle(415, 60, PlayerSpriteF.width, PlayerSpriteF.height);
 Rectangle botRect = new Rectangle(1000, 1000, 48, 48);
+Rectangle bot2Rect = new Rectangle(500, 500, 48, 48);
+Rectangle sceneChangeRect = new Rectangle(700, 700, 100, 100);
 string currenctScene = "welcomescreen";
 
 
@@ -27,6 +30,7 @@ Color backgroundcolor = new Color(195, 203, 110, 255);
 Vector2 botMovement = new Vector2(1, 0); 
 
 
+bool hasKey = false;
 
 // ----------------------------------------------------------------------------------------------------->
 //                  KEYBOARD-CONTROLS                  //
@@ -73,6 +77,18 @@ while (Raylib.WindowShouldClose() == false)
     botRect.x += botMovement.X;
     botRect.y += botMovement.Y;
 
+    Vector2 bot2Pos = new Vector2(bot2Rect.x, bot2Rect.y);
+    Vector2 diff2 = playerPos - bot2Pos;
+    Vector2 bot2Direction = Vector2.Normalize(diff2);
+
+    botMovement = bot2Direction * botSpeed;
+    bot2Rect.x += botMovement.X;
+    bot2Rect.y += botMovement.Y;
+
+if (Raylib.CheckCollisionRecs(player, keyRect))
+{
+    hasKey = true;
+}
 
 
 // ----------------------------------------------------------------------------------------------------->
@@ -94,7 +110,21 @@ while (Raylib.WindowShouldClose() == false)
     }
   }
 
+if (Raylib.CheckCollisionRecs(player, sceneChangeRect))
+{
+    // If the player has the key, change the scene
+    if (hasKey)
+    {
+        currenctScene = "newScene";
+    }
+}
 
+if (Raylib.CheckCollisionRecs(player, keyRect))
+{
+    hasKey = true;
+    keyRect.x = -10000;
+    keyRect.y = -10000;
+}
 
 
 // ----------------------------------------------------------------------------------------------------->
@@ -110,7 +140,10 @@ while (Raylib.WindowShouldClose() == false)
   {
     Raylib.DrawTextureEx(backgroundImage, new Vector2(0, 0), 0, 3, Color.WHITE);
     Raylib.DrawTexture(monsterSprite, (int)botRect.x, (int)botRect.y, Color.WHITE);
+    Raylib.DrawTexture(monsterSprite, (int)bot2Rect.x, (int)bot2Rect.y, Color.WHITE);
     Raylib.DrawTexture(PlayerSpriteF, (int) player.x, (int) player.y, backgroundcolor);
+    Raylib.DrawRectangleRec(sceneChangeRect, Color.BLACK);
+    Raylib.DrawTexture(keySprite, (int)keyRect.x, (int)keyRect.y, Color.WHITE);
 
   } 
 
@@ -154,5 +187,4 @@ while (Raylib.WindowShouldClose() == false)
 
 
 
-// * Multiple Levels 
 // * Borders!!

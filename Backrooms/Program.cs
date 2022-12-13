@@ -100,6 +100,15 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
     currenctScene = "defeat";
   }
 }
+
+  if (Raylib.CheckCollisionRecs(player, bot2Rect))
+  {
+    currenctScene = "defeat";
+  }
+
+
+
+
   
         // ENTER to transition from Welcome Screen to Game!
    else if (currenctScene == "welcomescreen")

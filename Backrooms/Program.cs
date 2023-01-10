@@ -133,7 +133,7 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
     hasKey = true;
     keyRect.x = -10000;
     keyRect.y = -10000;
-}
+} 
 
 
 // ----------------------------------------------------------------------------------------------------->
@@ -166,6 +166,7 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
   else if (currenctScene == "welcomescreen")
   {
     Raylib.DrawText("Welcome To The Backrooms", 280, 400, 50, textcolor);
+    Raylib.DrawText("Escape by collecting the key and unlocking the door!", 200, 440, 32, textcolor);
     Raylib.DrawText("\nENTER to begin", 515, 420, 32, textcolor);
   }
 
@@ -187,6 +188,10 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
 
 
 
+// ----------------------------------------------------------------------------------------------------->
+//                  PSEUDO-KOD                  //
+
+
 
 
 
@@ -197,3 +202,4 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
 
 
 // * Borders!!
+// Better Death scene (say how long u got?)

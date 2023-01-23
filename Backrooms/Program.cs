@@ -119,6 +119,34 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
     }
   }
 
+
+
+
+       // ENTER to transition from End Screen to Shut Off!
+    if (currenctScene == "defeat")
+  {
+    if (Raylib.IsKeyDown(KeyboardKey.KEY_ENTER))
+    {
+      System.Environment.Exit(1);
+    }
+  }
+
+
+
+
+       // ENTER to transition from Win Screen to Shut Off!
+    if (currenctScene == "newScene")
+  {
+    if (Raylib.IsKeyDown(KeyboardKey.KEY_ENTER))
+    {
+      System.Environment.Exit(1);
+    }
+  }
+
+ 
+
+
+
 if (Raylib.CheckCollisionRecs(player, sceneChangeRect))
 {
     // If the player has the key, change the scene
@@ -156,16 +184,10 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
 
   } 
 
-  else if (currenctScene =="level2")
-  {
-    Raylib.DrawTexture(PlayerSpriteF, (int) player.x, (int) player.y, backgroundcolor);
-    Raylib.DrawTexture(monsterSprite, (int)botRect.x, (int)botRect.y, Color.WHITE);
-  }
-
 
   else if (currenctScene == "welcomescreen")
   {
-    Raylib.DrawText("Welcome To The Backrooms", 280, 400, 50, textcolor);
+    Raylib.DrawText("Welcome To The Backrooms", 280, 380, 50, textcolor);
     Raylib.DrawText("Escape by collecting the key and unlocking the door!", 200, 440, 32, textcolor);
     Raylib.DrawText("\nENTER to begin", 515, 420, 32, textcolor);
   }
@@ -173,9 +195,16 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
 
   else if (currenctScene == "defeat")
   {   
-    Raylib.DrawText("Fin.", 540, 300, 128, Color.WHITE);
+    Raylib.DrawText("YOU'VE BEEN CAUGHT!", 110, 300, 90, Color.WHITE);
+    Raylib.DrawText("\nENTER to exit", 515, 420, 32, textcolor);
   }
 
+
+  else if (currenctScene == "newScene")
+  {   
+    Raylib.DrawText("YOU'VE ESCAPED!", 250, 300, 90, Color.WHITE);
+    Raylib.DrawText("\nENTER to exit", 515, 420, 32, textcolor);
+  }
 
 
 
@@ -191,15 +220,18 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
 // ----------------------------------------------------------------------------------------------------->
 //                  PSEUDO-KOD                  //
 
+// Ladda in texturer för alla karaktärer, skapa rektanglerna och färgerna som ska användas
+// Gör att spelaren inte har en "key"
 
+// Spelaren rör sig med WASD
+// Fiender följer efter spelaren
 
+// Om man kolliderar med fiende 
+// så förlorar man
+// Byt "scene" till förlorar skärm
 
+// Om man plockar up "key" så försvinner den
+// Gå in i dörr med key så vinner man
+// Byt "scene" till vinst skärm
 
-
-// ----------------------------------------------------------------------------------------------------->
-//                  TO-DO-LIST                  //
-
-
-
-// * Borders!!
-// Better Death scene (say how long u got?)
+// Ladda in fienderna i nivå 

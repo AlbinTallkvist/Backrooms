@@ -46,24 +46,52 @@ while (Raylib.WindowShouldClose() == false)
     if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
     {
       player.x += speed;
+
+          // Kontrollera om spelarens x är större än skärmens bredd 
+      if (player.x > Raylib.GetScreenWidth() - player.width) 
+        {
+            // Ställ in spelarens x till skärmbredd 
+          player.x = Raylib.GetScreenWidth() - player.width; 
+        }
     }
 
 
     if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
     {
       player.x -= speed;
+
+          // Kontrollera om spelarens x är mindre än 0
+      if (player.x < 0) 
+        {
+              // Ställ in spelarens x till 0
+            player.x = 0;
+        }
     }
 
 
     if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
     {
-      player.y += speed;     
+      player.y += speed;
+
+          // Kontrollera om spelarens y är större än skärmens höjd
+      if (player.y > Raylib.GetScreenHeight() - player.height) 
+        {
+              // Ställ in spelarens y till skärmhöjd
+            player.y = Raylib.GetScreenHeight() - player.height; 
+        }
     }
 
 
     if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
   {
     player.y -= speed;
+
+        // Kontrollera om spelarens y är mindre än 0
+    if (player.y < 0) 
+        {
+              // Sätt spelarens y till 0
+            player.y = 0; 
+        }
   }
 
 // ----------------------------------------------------------------------------------------------------->

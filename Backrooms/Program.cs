@@ -2,44 +2,46 @@
 using Raylib_cs;
 using System.Numerics;
 
-
+// Standard inställningar, hur stor ska resolutionen vara och fps
 Raylib.InitWindow(1280, 800, "The Backrooms");
 Raylib.SetTargetFPS(60);
 
-
+// Spelbara karaktären och bot's rörelse hastighet
 float speed = 3.5f;
 float botSpeed = 2;
 
-
+// Laddar in texturerna för alla karktärer osv
 Texture2D PlayerSpriteF = Raylib.LoadTexture("MainCharacterFront.png");
 Texture2D monsterSprite = Raylib.LoadTexture("monster2.png");
 Texture2D backgroundImage = Raylib.LoadTexture("Background1.png");
 Texture2D keySprite = Raylib.LoadTexture("key.png");
 
-
+// Skapar kontrollerbara reklatangar med sprites/bilderna som laddades in ^ 
 Rectangle keyRect = new Rectangle(100, 700, keySprite.width, keySprite.height);
 Rectangle player = new Rectangle(415, 60, PlayerSpriteF.width, PlayerSpriteF.height);
 Rectangle botRect = new Rectangle(1000, 1000, 48, 48);
 Rectangle bot2Rect = new Rectangle(500, 500, 48, 48);
 Rectangle sceneChangeRect = new Rectangle(1075, 60, 100, 100);
+
+// Sätter "welcomescreen" till den scenen som visas när man startar spelet
 string currenctScene = "welcomescreen";
 
-
+// Skapar två unika färger som sedan implementeras
 Color textcolor = new Color(225, 226, 187, 255);
 Color backgroundcolor = new Color(195, 203, 110, 255);
 Vector2 botMovement = new Vector2(1, 0); 
 
-
+// Sätter så att man i början inte har nyckeln
 bool hasKey = false;
 
 // ----------------------------------------------------------------------------------------------------->
 //                  KEYBOARD-CONTROLS                  //
 
-
+// Gör att karaktären kan röra på sig runt spelytan på scen "level1" bara
 
 while (Raylib.WindowShouldClose() == false)
 {
-  if (currenctScene == "level1")   // [KOM IHÅG!] Lägg till för andra nivåer på Torsdag
+  if (currenctScene == "level1")  
   {
     if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
     {
@@ -65,26 +67,34 @@ while (Raylib.WindowShouldClose() == false)
   }
 
 // ----------------------------------------------------------------------------------------------------->
-  //                      SETTINGS                     //
+  //                      SETTINGS                     //  ENDA KVAR
 
+      // Två Vector-2 variablar skapas för spelaren och botens position, den hittar skillnaden mellan dem för att avögra riktningen som boten ska röra sig mot spelaren och normaliserar den riktningsvektorn.
     Vector2 playerPos = new Vector2(player.x, player.y);
     Vector2 botPos = new Vector2(botRect.x, botRect.y);
     Vector2 diff = playerPos - botPos;
     Vector2 botDirection = Vector2.Normalize(diff);
 
 
+      // Beräknar rörelsen för boten genom att multiplicera dess riktningsvektor med dess hastighet, och uppdaterar sedan botens position genom att lägga till rörelsevärdena till dess x- och y-koordinater.
     botMovement = botDirection * botSpeed;
     botRect.x += botMovement.X;
     botRect.y += botMovement.Y;
 
+
+      // Desamma som översta, men för Bot2
     Vector2 bot2Pos = new Vector2(bot2Rect.x, bot2Rect.y);
     Vector2 diff2 = playerPos - bot2Pos;
     Vector2 bot2Direction = Vector2.Normalize(diff2);
 
+
+      // Desamma som översta, men för Bot2
     botMovement = bot2Direction * botSpeed;
     bot2Rect.x += botMovement.X;
     bot2Rect.y += botMovement.Y;
 
+
+      // Om spelaren kolliderar med nyckeln så ändras "haskey" till "true" (spelaren får nyckeln)
 if (Raylib.CheckCollisionRecs(player, keyRect))
 {
     hasKey = true;
@@ -92,7 +102,7 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
 
 
 // ----------------------------------------------------------------------------------------------------->
-//                      TRANSITIONS                     //
+//                      TRANSITIONS                     // 
 
         // If you collide with bot, you loose!
   if (Raylib.CheckCollisionRecs(player, botRect))
@@ -149,13 +159,14 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
 
 if (Raylib.CheckCollisionRecs(player, sceneChangeRect))
 {
-    // If the player has the key, change the scene
+    // Om spelaren har nyckeln, byt scenen
     if (hasKey)
     {
         currenctScene = "newScene";
     }
 }
 
+    // Om man kolliderar med nyckeln så flyttas nyckelns plats/kordinater till..
 if (Raylib.CheckCollisionRecs(player, keyRect))
 {
     hasKey = true;
@@ -165,14 +176,14 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
 
 
 // ----------------------------------------------------------------------------------------------------->
-//                  MAP-CUSTOMIZATION                  //
+//                  MAP-CUSTOMIZATION                
 
 
   Raylib.BeginDrawing();
   Raylib.ClearBackground(backgroundcolor);
   
 
-
+// Ritar ut dom skapade reklatlagarna (bots spelbara, nyckel, dörr) med dess inladdade texturer, kordinater och färger
   if (currenctScene == "level1")
   {
     Raylib.DrawTextureEx(backgroundImage, new Vector2(0, 0), 0, 3, Color.WHITE);
@@ -184,7 +195,7 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
 
   } 
 
-
+// Ritar text som säger man start, när programmet startas
   else if (currenctScene == "welcomescreen")
   {
     Raylib.DrawText("Welcome To The Backrooms", 280, 380, 50, textcolor);
@@ -192,14 +203,14 @@ if (Raylib.CheckCollisionRecs(player, keyRect))
     Raylib.DrawText("\nENTER to begin", 515, 420, 32, textcolor);
   }
 
-
+// Ritar text som säger man förlorar  om man byter till "defeat" scenen
   else if (currenctScene == "defeat")
   {   
     Raylib.DrawText("YOU'VE BEEN CAUGHT!", 110, 300, 90, Color.WHITE);
     Raylib.DrawText("\nENTER to exit", 515, 420, 32, textcolor);
   }
 
-
+// Ritar text som säger man vinner om man byter till "newscene" scenen
   else if (currenctScene == "newScene")
   {   
     Raylib.DrawText("YOU'VE ESCAPED!", 250, 300, 90, Color.WHITE);

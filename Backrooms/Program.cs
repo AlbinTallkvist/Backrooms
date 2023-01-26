@@ -9,6 +9,7 @@ Raylib.SetTargetFPS(60);
 // Spelbara karaktären och bot's rörelse hastighet
 float speed = 3.5f;
 float botSpeed = 2;
+float bot2Speed = 1;
 
 // Laddar in texturerna för alla karktärer osv
 Texture2D PlayerSpriteF = Raylib.LoadTexture("MainCharacterFront.png");
@@ -30,8 +31,9 @@ string currenctScene = "welcomescreen";
 Color textcolor = new Color(225, 226, 187, 255);
 Color backgroundcolor = new Color(195, 203, 110, 255);
 Vector2 botMovement = new Vector2(1, 0); 
+Vector2 bot2Movement = new Vector2(1, 0); 
 
-// Sätter så att man i början inte har nyckeln
+// Sätter så att man i början inte har nyckeln (bool sparar ett värde som sannt eller falskt)
 bool hasKey = false;
 
 // ----------------------------------------------------------------------------------------------------->
@@ -94,32 +96,39 @@ while (Raylib.WindowShouldClose() == false)
         }
   }
 
+    // Skapar en lista som heter "botlist" med två reklatanglar/bottar som heter botrect och bot2rect
+  List<Rectangle> botList = new List<Rectangle>();
+  botList.Add(botRect);
+  botList.Add(bot2Rect);
+
+    // Skapar en ny vector2 med kordinaterna av spelarens karaktär 
+  Vector2 playerPos = new Vector2(player.x, player.y);
+
 // ----------------------------------------------------------------------------------------------------->
   //                      SETTINGS                     //  ENDA KVAR
 
-      // Två Vector-2 variablar skapas för spelaren och botens position, den hittar skillnaden mellan dem för att avögra riktningen som boten ska röra sig mot spelaren och normaliserar den riktningsvektorn.
-    Vector2 playerPos = new Vector2(player.x, player.y);
-    Vector2 botPos = new Vector2(botRect.x, botRect.y);
-    Vector2 diff = playerPos - botPos;
-    Vector2 botDirection = Vector2.Normalize(diff);
 
+    // Den här delen av koden styr bottarna, de får de att röra sig och jaga spelaren
+    // Den skapar en vector2 med positionen (x och y) av botten och en "diff" vilket är skillnaden mellan spelaren och bots position
+    // Bottens riktning multipliceras sedan med dess redan bestämda speed (^^) och så får den en rörelse vilket är hur den jagar spelaren
+    // Koden uppdaterar sedan bottens position genom att lägga till x och y komponenterna av botens rörelse till den nya aktuella x och y koridnaten av botten
+  foreach (Rectangle bot in botList)
+{
+  Vector2 botPos = new Vector2(bot.x, bot.y);
+  Vector2 diff = playerPos - botPos;
+  Vector2 botDirection = Vector2.Normalize(diff);
+  botMovement = botDirection * botSpeed;
+  botRect.x += botMovement.X;
+  botRect.y += botMovement.Y;
 
-      // Beräknar rörelsen för boten genom att multiplicera dess riktningsvektor med dess hastighet, och uppdaterar sedan botens position genom att lägga till rörelsevärdena till dess x- och y-koordinater.
-    botMovement = botDirection * botSpeed;
-    botRect.x += botMovement.X;
-    botRect.y += botMovement.Y;
+  Vector2 bot2Pos = new Vector2(bot2Rect.x, bot2Rect.y);
+  Vector2 diff2 = playerPos - bot2Pos;
+  Vector2 bot2Direction = Vector2.Normalize(diff2);
+  bot2Movement = bot2Direction * bot2Speed;
+  bot2Rect.x += bot2Movement.X;
+  bot2Rect.y += bot2Movement.Y;
+}
 
-
-      // Desamma som översta, men för Bot2
-    Vector2 bot2Pos = new Vector2(bot2Rect.x, bot2Rect.y);
-    Vector2 diff2 = playerPos - bot2Pos;
-    Vector2 bot2Direction = Vector2.Normalize(diff2);
-
-
-      // Desamma som översta, men för Bot2
-    botMovement = bot2Direction * botSpeed;
-    bot2Rect.x += botMovement.X;
-    bot2Rect.y += botMovement.Y;
 
 
       // Om spelaren kolliderar med nyckeln så ändras "haskey" till "true" (spelaren får nyckeln)
